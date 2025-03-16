@@ -2,6 +2,7 @@ export class ChatDO {
     constructor(state) {
       this.state = state;
       this.connections = new Map();  // clientId → { socket, serverSocket }
+      console.log("[DO] Constructor called");
     }
   
     async fetch(request) {
