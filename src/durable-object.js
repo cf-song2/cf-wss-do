@@ -24,9 +24,22 @@ export class ChatDO {
   
       try {
         console.log(`[DO] Connecting backend for ${clientId}`);
-        const backendResp = await fetch("wss://spectrum.cecil-personal.site/ws", {
-          headers: { "Upgrade": "websocket" }
+        
+        const backendResp = await fetch("https://spectrum.cecil-personal.site/ws", {
+            method: "GET",
+            headers: {
+              "Upgrade": "websocket",
+              "Connection": "Upgrade",
+              "Sec-WebSocket-Version": "13",
+              "Sec-WebSocket-Key": btoa(crypto.randomUUID()), // Base64-encoded key
+            },
         });
+
+        if (!backendResp.webSocket) {
+            console.error("[DO] WebSocket upgrade failed (no webSocket in response)");
+            doClientSide.close(1011, "Backend WebSocket upgrade failed");
+            return new Response("Upgrade failed", { status: 500 });
+        }
   
         const serverSocket = backendResp.webSocket;
         serverSocket.accept();
