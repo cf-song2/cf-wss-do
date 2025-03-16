@@ -25,7 +25,7 @@ export class ChatDO {
       try {
         console.log(`[DO] Connecting backend for ${clientId}`);
         
-        const backendResp = await fetch("https://spectrum.cecil-personal.site/ws", {
+        const backendResp = await fetch("https://backend.spectrum.cecil-personal.site/ws", {
             method: "GET",
             headers: {
               "Upgrade": "websocket",
