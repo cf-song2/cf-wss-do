@@ -1,0 +1,17 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "wss-proxy",
+	"main": "src/worker.js",
+	"compatibility_date": "2025-03-13",
+	"observability": {
+		"enabled": true
+	},
+	"durable_objects": {
+   		"bindings": [
+		   {"name": "CHAT_DO", "class_name": "ChatDO" }
+    	]
+  	},
+  	"migrations": [
+    	{ "tag": "v1", "new_classes": ["ChatDO"] }
+	]  
+}
